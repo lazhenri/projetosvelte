@@ -1,10 +1,12 @@
 import App from './App.svelte';
+import moment from 'moment';
 
 const app = new App({
 	target: document.body,
 	props: {
-		name: 'world'
-	}
+		
+	},
+	external: ['moment'] 
 });
 
 export default app;
