@@ -13,21 +13,27 @@
 
     let generate = () => {
         dadCells = [...Array(casas).fill(Array(casas).fill(0))];
-        let arrayBombs = [...Array(numberBombs).fill([])];
+        let arrayBombs = [...Array(numberBombs).fill({"x": 0, "y":0})];
+        //let arrayBombs = new Array(numberBombs);
         arrayBombs.forEach(ar => {
             let x = locateBombs();
             let y = locateBombs();
-            console.log("x "+x+" y "+y);
-            ar.push(x);
-            ar.push(y);
+           // arrayBombs.push({'x':x, 'y':y });
+            console.log(arrayBombs);
+            // console.log("x "+x+" y "+y);
+            // ar.x = x;
+            // ar.y = y;
+            // ar.push(x);
+            // ar.push(y);
         });
-        console.log(arrayBombs);
     }
 
 
 
     let locateBombs = ()=> {
-        return Math.floor(Math.random() * ( casas - 1 + 1) + 1);
+        const valor = Math.floor(Math.random() * ( casas - 1 + 1) + 1);
+        console.log(valor);
+        return valor;
     }
 
 
@@ -35,7 +41,7 @@
         console.log("Click", cell);
         // console.log(locateBombs());
         generate();
-        console.log(dadCells);
+        //console.log(dadCells);
     }
 
 </script>
