@@ -11,6 +11,7 @@
     bombs = generateBombs();
     populateDad();
     populateBombs();
+    populateTips(); 
 
   }
 
@@ -37,69 +38,58 @@
       }
   };
   
-  const f = () => {
-    return new Promise((r) => {
-      const position = new Object({ x: locateBombs(), y: locateBombs() });
-      const hasValueInArray = bombs.filter((el) => {
-        return JSON.stringify(el) == JSON.stringify(position);
-      });
-      if (hasValueInArray.length === 0) bombs.push(position);
-      if (bombs.length === numberBombs) r();
-      else {
-        f();
-        r();
-      }
-    });
-  };
 
   function generateBombs (){
     return Array.from(Array(numberBombs), () => new Object({x: locateBombs(), y: locateBombs()}) );
   }
 
   function populateTips (){
-    
+    for(const bb of bombs){
+      if(dadCells[bb.x][bb.y - 1] != undefined && dadCells[bb.x][bb.y - 1] != "*"){
+        dadCells[bb.x][bb.y - 1]++;
+      }
+      if(dadCells[bb.x][bb.y+1] != undefined && dadCells[bb.x][bb.y+1] != "*"){
+        dadCells[bb.x][bb.y+1]++;
+      }
+      
+      if(bb.x > 0){
+        if(dadCells[bb.x - 1][bb.y+1] != undefined && dadCells[bb.x - 1][bb.y + 1] != "*"){
+          dadCells[bb.x - 1][bb.y+1]++;
+        }
+        if(dadCells[bb.x - 1][bb.y] != undefined && dadCells[bb.x-1][bb.y] != "*" ){
+          dadCells[bb.x - 1][bb.y]++;
+        }
+        if(dadCells[bb.x - 1][bb.y - 1] != undefined && dadCells[bb.x - 1][bb.y - 1] != "*"){
+          dadCells[bb.x - 1][bb.y - 1 ]++;
+        }
+      }
+
+      if(bb.x < (casas - 1)){
+        if(dadCells[bb.x + 1][bb.y + 1] != undefined && dadCells[bb.x + 1][bb.y + 1] != "*"){
+          dadCells[bb.x + 1][bb.y + 1]++;
+        }
+        if(dadCells[bb.x + 1][bb.y] != undefined && dadCells[bb.x + 1][bb.y] != "*"){
+          dadCells[bb.x + 1][bb.y]++;
+        }
+        if(dadCells[bb.x + 1][bb.y - 1] != undefined && dadCells[bb.x + 1][bb.y - 1] != "*"){
+          dadCells[bb.x + 1][bb.y - 1]++;
+        }
+
+      }
+
+
+      };
+
   }
 
-  let generate = () => {
-    
-    // dadCells = [...Array(casas).fill(Array(casas).fill(0))];
-    bombs = generateBombs();
-    populateDad();
-    populateBombs();
-    // f().then((data) => {
-    //   console.log(bombs);
-    //   populateDad();
-    //   populateBombs();
-    // });
-    //console.log(dadCells);
-    // let arrayBombs = [...Array(numberBombs).fill({"x": 0, "y":0})];
-    //let arrayBombs = new Array(numberBombs);
-    // arrayBombs.forEach(ar => {
-    //     let x = locateBombs();
-    //     let y = locateBombs();
-    //    // arrayBombs.push({'x':x, 'y':y });
-    //     // console.log("x "+x+" y "+y);
-    //     // ar.x = x;
-    //     // ar.y = y;
-    //     // ar.push(x);
-    //     // ar.push(y);
-    // });
-
-    // for (let obj of arrayBombs) {
-    //     obj.x = locateBombs();
-    //     obj.y = locateBombs();
-    // }
-    // console.log(bombs);
-  };
-
   let locateBombs = () => {
-    return Math.floor(Math.random() * (casas - 1 + 1) + 1);
+    return Math.floor(Math.random() * ((casas-1) - 0 + 1) + 0);
   };
 
   let changeBlock = (cell) => {
     console.log("Click", cell);
     // console.log(locateBombs());
-    generate();
+    //generate();
     //console.log(dadCells);
   };
 
